@@ -1941,7 +1941,10 @@ public class PHPCSVEdgeInterpreter implements CSVRowInterpreter
 		switch (childnum)
 		{
 			case 0: // exception child: Identifier node
-				startNode.setExceptionIdentifier((Identifier)endNode);
+				if (endNode instanceof Identifier)
+					startNode.setExceptionIdentifier((Identifier)endNode);
+				if (endNode instanceof IdentifierList)
+					startNode.setExceptionIdentifier(((IdentifierList)endNode).getIdentifier(0));
 				break;
 			case 1: // var child: Variable node
 				startNode.setVariable((Variable)endNode);
@@ -2091,7 +2094,8 @@ public class PHPCSVEdgeInterpreter implements CSVRowInterpreter
 
 	private int handleArray( ArrayExpression startNode, ASTNode endNode, int childnum)
 	{
-		startNode.addArrayElement((ArrayElement)endNode);
+		if (endNode instanceof ArrayElement)
+			startNode.addArrayElement((ArrayElement)endNode);
 
 		return 0;
 	}
