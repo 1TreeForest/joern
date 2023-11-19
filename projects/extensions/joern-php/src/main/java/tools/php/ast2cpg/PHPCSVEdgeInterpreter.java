@@ -544,7 +544,8 @@ public class PHPCSVEdgeInterpreter implements CSVRowInterpreter
 				startNode.addChild(endNode);
 				break;
 			case 2: // stmts child
-				startNode.setContent((CompoundStatement)endNode);
+				if (endNode instanceof CompoundStatement)
+					startNode.setContent((CompoundStatement)endNode);
 				break;
 			case 3: // returnType child: either Identifier or NULL node
 				if( endNode instanceof NullNode)
