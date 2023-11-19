@@ -537,7 +537,8 @@ public class PHPCSVEdgeInterpreter implements CSVRowInterpreter
 		switch (childnum)
 		{
 			case 0: // params child
-				startNode.setParameterList((ParameterList)endNode);
+				if (endNode instanceof ParameterList)
+					startNode.setParameterList((ParameterList)endNode);
 				break;
 			case 1: // NULL child
 				startNode.addChild(endNode);
